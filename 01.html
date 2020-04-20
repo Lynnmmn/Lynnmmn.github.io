@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <title>Document</title>
+  <style>
+    * {
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+
+    .activ {
+      color: red;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+    }
+
+    #watch-example {
+      width: 800px;
+      margin: 200px auto;
+      /*padding: 10px;*/
+    }
+  </style>
+</head>
+
+<body>
+  <div id="watch-example" v-cloak>
+    <ul>
+      <li v-for="(m,index) in movies" :class="{activ:index==activIdex}" @click="bg(index)">{{index}}-{{m}}</li>
+    </ul>
+    <button @click="ck1('a',$event)">1</button>
+    <el-table :data="bookinfo" border size="small" show-summary>
+      <el-table-column type="index"></el-table-column>
+      <el-table-column label="ID" prop="id"></el-table-column>
+      <el-table-column label="书籍名称" prop="title"></el-table-column>
+      <el-table-column label="价格" prop="price"></el-table-column>
+      <el-table-column label="出版日期" prop="dateTime"></el-table-column>
+      <el-table-column label="数量">
+        <template slot-scope="scope">
+          <el-input-number prop="num" :min="1" :max="10" size="mini" style="width: 100px"></el-input-number>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button size="mini" type="danger">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <span>总价:{{priceA}}</span>
+  </div>
+  <script src="vues.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script>
+    var watchExampleVM = new Vue({
+      el: '#watch-example',
+      data: {
+        movies: ['变形金刚1', '变形金刚2', '变形金刚3', '变形金刚4', '变形金刚5'],
+        activIdex: 0,
+        bookinfo: [
+          {
+            id: '1000',
+            title: 'Python',
+            price: 99,
+            dateTime: '2019/12/20',
+          },
+          {
+            id: '1001',
+            title: 'Liunx',
+            price: 100,
+            dateTime: '2019/10/16',
+          },
+          {
+            id: '1002',
+            title: 'Vue',
+            price: 99.8,
+            dateTime: '2019/11/23',
+          },
+
+        ]
+      },
+      methods: {
+        bg(index) {
+          this.activIdex = index
+        },
+        ck1(abc, event) {
+          console.log(abc, event);
+        }
+      },
+      computed: {
+        priceA() {
+          return 100
+        }
+      }
+
+    })
+  </script>
+</body>
+
+</html>
